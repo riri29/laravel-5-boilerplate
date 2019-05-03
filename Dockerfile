@@ -1,4 +1,6 @@
-FROM ubuntu:18.04
-RUN apt update && apt install php php-mbstring php-gd php-pdo php-xml
-COPY ./* /var/phpunit
-CMD cd /var/phpunit && php artisan serve --port 8080
+FROM phpstorm/php-73-apache-xdebug-27
+RUN apt update && apt install unzip -y
+ADD laravel.zip /var/phpunit
+WORKDIR /var/phpunit
+RUN unzip -o laravel.zip
+CMD php artisan serve --port 8080
